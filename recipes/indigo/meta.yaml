@@ -1,0 +1,51 @@
+package:
+  name: indigo
+  version: 1.12.0
+
+source:
+  url: https://github.com/epam/indigo/archive/refs/tags/conda-indigo-dev.tar.gz
+  sha256: 5886b648fa314fa6dfadd7e8fc455610a419bc20d37c4830383b97b18d203e56
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake
+    - ninja
+  host:
+    - python
+    - pip
+    - setuptools
+    - cairo
+    - inchi
+    - rapidjson
+    - tinyxml2
+  run:
+    - cairo
+    - inchi
+    - tinyxml2
+    - zlib
+
+test:
+  imports:
+    - indigo
+    - indigo.renderer
+    - indigo.inchi
+    - indigo.bingo
+  commands:
+    - python -c "import indigo; indigo = indigo.Indigo(); assert indigo.version().startswith('1.12')"
+
+about:
+  home: https://lifescience.opensource.epam.com/indigo/
+  summary: Universal cheminformatics toolkit
+  description: |
+    Universal cheminformatics toolkit that can be used for dealing with molecules and reactions, fingerprinting, 
+    substructure search, similarity search, and molecular visualization.
+  doc_url: https://lifescience.opensource.epam.com/indigo/
+  dev_url: https://github.com/epam/indigo
+  license: Apache-2.0
+  license_file: LICENSE.txt
+
+extra:
+  recipe-maintainers:
+    - mkviatkovskii
